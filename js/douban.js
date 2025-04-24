@@ -13,8 +13,14 @@ function initDouban() {
     // 设置豆瓣开关的初始状态
     const doubanToggle = document.getElementById('doubanToggle');
     if (doubanToggle) {
+        // 默认启用，除非明确禁用
         const isEnabled = localStorage.getItem('doubanEnabled') !== 'false';
         doubanToggle.checked = isEnabled;
+        
+        // 首次访问时，设置初始值到 localStorage
+        if (localStorage.getItem('doubanEnabled') === null) {
+            localStorage.setItem('doubanEnabled', 'true');
+        }
         
         // 设置开关外观
         const toggleBg = doubanToggle.nextElementSibling;
@@ -58,7 +64,7 @@ function initDouban() {
     // 换一批按钮事件监听
     setupDoubanRefreshBtn();
     
-    // 初始加载热门内容
+    // 初始加载热门内容 - 统一使用和 updateDoubanVisibility 相同的判断逻辑
     if (localStorage.getItem('doubanEnabled') !== 'false') {
         renderRecommend(doubanCurrentTag, doubanPageSize, doubanPageStart);
     }
@@ -69,7 +75,8 @@ function updateDoubanVisibility() {
     const doubanArea = document.getElementById('doubanArea');
     if (!doubanArea) return;
     
-    const isEnabled = localStorage.getItem('doubanEnabled') === 'true';
+    // 统一使用这种逻辑：默认启用，除非明确禁用
+    const isEnabled = localStorage.getItem('doubanEnabled') !== 'false';
     const isSearching = document.getElementById('resultsArea') && 
         !document.getElementById('resultsArea').classList.contains('hidden');
     

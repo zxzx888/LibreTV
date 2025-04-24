@@ -1,5 +1,5 @@
 // 全局变量
-let selectedAPIs = JSON.parse(localStorage.getItem('selectedAPIs') || '["heimuer", "dbzy"]'); // 默认选中黑木耳和豆瓣资源
+let selectedAPIs = JSON.parse(localStorage.getItem('selectedAPIs') || JSON.stringify(Object.keys(API_SITES))); // 正确处理默认全选
 let customAPIs = JSON.parse(localStorage.getItem('customAPIs') || '[]'); // 存储自定义API列表
 
 // 添加当前播放的集数索引
@@ -27,8 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 设置默认API选择（如果是第一次加载）
     if (!localStorage.getItem('hasInitializedDefaults')) {
-        // 仅选择黑木耳源和豆瓣资源
-        selectedAPIs = ["heimuer", "dbzy"];
+        // 获取所有API键名
+        const allApiKeys = Object.keys(API_SITES);
+        
+        // 设置为全选所有API
+        selectedAPIs = allApiKeys;
         localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
         
         // 默认选中过滤开关
@@ -37,6 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 标记已初始化默认值
         localStorage.setItem('hasInitializedDefaults', 'true');
+
+        // 重新初始化API复选框以反映全选状态
+        initAPICheckboxes();
     }
     
     // 设置黄色内容过滤开关初始状态
