@@ -299,7 +299,10 @@
                         </svg>
                         <span class="gradient-text font-bold">LibreTV</span>
                     </div>
-                    <p class="text-gray-500 text-sm mt-2 text-center md:text-left">© 2025 LibreTV - 自由观影，畅享精彩</p>
+                    <p class="text-gray-500 text-sm mt-2 text-center md:text-left">© 2025 LibreTV - 自由观影，畅享精彩！</span>
+                        今日访问人数:<span id="visitCount" class="ml-1 text-[#00ccff]">加载中...</span>
+                        当前在线人数:<span id="liveuser" class="ml-1 text-[#00ccff]">加载中...</span>
+                    </p>
                 </div>
                 
                 <div class="text-center md:text-right">
@@ -338,7 +341,7 @@
                 <h2 class="text-2xl font-bold gradient-text">访问验证</h2>
             </div>
             <div class="mb-6">
-                <p class="text-gray-300 mb-4">请输入密码继续访问</p>
+                <p class="text-gray-300 mb-4">访问密码是 <a href='https://t.me/CMLiussss' class="text-blue-400 hover:text-pink-500 font-medium transition-colors">Telegram交流群</a> 群组ID，真爱粉细品！</p>
                 <form id="passwordForm" onsubmit="handlePasswordSubmit(); return false;">
                     <input type="text" name="username" id="username" autocomplete="username" style="display:none" tabindex="-1" aria-hidden="true">
                     <input type="password" id="passwordInput" class="w-full bg-[#111] border border-[#333] text-white px-4 py-3 rounded-lg focus:outline-none focus:border-white transition-colors" placeholder="密码..." autocomplete="new-password">
@@ -435,5 +438,14 @@
 
     <!-- 添加弹窗和URL搜索参数处理脚本 -->
     <script src="js/index-page.js"></script>
+
+    <!-- 访问统计脚本 -->
+    <script>
+        fetch('https://tongji.090227.xyz/?id=libretv.cmliussss.dedyn.io')
+            .then(r => r.json())
+            .then(d => document.getElementById('visitCount').innerText = d.visitCount)
+            .catch(e => document.getElementById('visitCount').innerText = '加载失败');
+    </script>
+    <script src="https://liveuser.030101.xyz/main.js?sessionId=libretv.cmliussss.dedyn.io"></script>
 </body>
 </html>
